@@ -102,9 +102,56 @@ export const verifyEmail=async(req,res)=>{
         
     }
 };
+
+//login function
 export const login=async(req,res)=>{
-    res.send("login route");
+    //get user credentials from body
+    const {email,password}=req.body;
+
+    //now check for required credentials presence and verifyy the credentials
+    try{
+        const user=await User.findOne({email});
+        //invalid credentials
+        if(!user){
+            return res.status(400).json({
+                success:false,
+                message:"Invalid credentials"
+            });
+        }
+        //compare the password
+
+        const isPassword=await bcryptjs.compare(password,user.password);
+        //invalid password
+        if(!isPassword){
+            return res.status(400).json({
+                success:false,
+                message:"Invalid credentials"
+            });
+        }
+        //now if everything is allright generate token and setcookie
+        generateTokenAndSetCookie(res,user._id);
+        //update the last login
+        user.lastLogin=new Date();
+        //save the user
+        user.save();
+        //send the response
+
+        res.status(200).json({
+            success:true,
+            message:"Logged in successfully",
+            user:{
+                ...user._doc,
+                password:undefined,
+            },
+        });
+    } catch(error){
+        console.log("error in login",error);
+        res.status(500).json({success:false,message:"serror in login"});
+        
+    }
+
 };
+//logout function
 export const logout=async(req,res)=>{
     //we just have to clear all cookie to do this
     res.clearCookie("token");
