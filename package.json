@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "axios": "^1.7.7"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && node index.js",
+    "client": "cd client && npm start"
+  }
+}
