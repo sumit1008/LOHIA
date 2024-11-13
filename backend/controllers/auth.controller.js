@@ -1,7 +1,9 @@
-import { User } from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
+import crypto from "crypto";
+
+import { User } from "../models/user.model.js";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
-import { sendVerificationEmail, sendWelcomeEmail } from "../mailtrap/email.js";
+import { sendVerificationEmail, sendWelcomeEmail,sendPasswordResetEmail } from "../mailtrap/email.js";
 
 //signup function 
 export const signup=async (req,res)=>{
@@ -146,7 +148,7 @@ export const login=async(req,res)=>{
         });
     } catch(error){
         console.log("error in login",error);
-        res.status(500).json({success:false,message:"serror in login"});
+        res.status(500).json({success:false,message:"s`error in login"});
         
     }
 
@@ -160,3 +162,45 @@ export const logout=async(req,res)=>{
         message:"Logged out successfully"
     });
 };
+//forgot password function
+export const forgotPassword=async(req,res)=>{
+    //get credentials
+    const {email}=req.body;
+
+    try{
+        const user=await User.findOne({email});
+        //if not found
+        if(!user){
+            return res.status(400).json({
+                success:false,
+                message:"User not found"
+            });
+        }
+
+        //generate reset token
+        const resetToken=crypto.randomBytes(20).toString("hex");
+        const resetTokenExpiresAt=Date.now()+1*60*60*1000; //one hour
+
+        //save this info in db so we can use it
+        user.resetPasswordToken=resetToken;
+        user.resetPasswordExpiresAt=resetTokenExpiresAt;
+
+        await user.save();
+
+        //send password reset email
+        await sendPasswordResetEmail(user.email,`${process.env.CLIENT_URL}/reset-password/${resetToken}`);
+
+        //send back response
+        res.status(200).json({
+            success:true,
+            message:"Password reset link send to your email"
+        });
+    } catch(error){
+        console.log("Error in forgot password",error);
+        res.status(400).json({
+            success:false,
+            message:"Errror in forgot password"
+        })
+    }
+}
+//reset password function
