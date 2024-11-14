@@ -7,7 +7,8 @@ dotenv.config();
 
 const app=express();
 app.use(express.json());//allow us to parse incoming req:req.body
-app.use("/api/auth",authRoutes)
+app.use("/api/auth",authRoutes);
+
 app.listen(3000,()=>{
     connectDB();
     console.log("Server is running on port 3000");
