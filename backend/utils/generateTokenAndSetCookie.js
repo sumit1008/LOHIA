@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 //securing the user data against XSS and CSRF
 export const generateTokenAndSetCookie = (res, user_id) => {
     const token = jwt.sign(
-        { user_id },
+        { user_id: user_id.toString() },
         process.env.JWT_SECRET,
         { expiresIn: "7d" }
     );
