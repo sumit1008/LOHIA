@@ -225,7 +225,7 @@ export const resetPassword=async(req,res)=>{
                 message:"Invalid or expired reset token",
             });
         }
-        //if user found then reset the password of the user GIVEN
+        //if user found then reset the password of the user GIVEN thinhs are needed
         const hashedPassword=await bcryptjs.hash(password,10);
         user.password=hashedPassword;
         //now as password is updated delete the token
