@@ -3,7 +3,7 @@ import crypto from "crypto";
 
 import { User } from "../models/user.model.js";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
-import { sendVerificationEmail, sendWelcomeEmail,sendPasswordResetEmail } from "../mailtrap/email.js";
+import { sendVerificationEmail, sendWelcomeEmail,sendPasswordResetEmail,sendResetSuccessEmail } from "../mailtrap/email.js";
 
 //signup function 
 export const signup=async (req,res)=>{
@@ -100,7 +100,7 @@ export const verifyEmail=async(req,res)=>{
         });
     } catch(error){
         console.log("error in verify email",error);
-        res.status(500).json({success:false,message:"server error"});
+        res.status(400).json({success:false,message:"server error"});
         
     }
 };
@@ -153,6 +153,7 @@ export const login=async(req,res)=>{
     }
 
 };
+
 //logout function
 export const logout=async(req,res)=>{
     //we just have to clear all cookie to do this
@@ -162,6 +163,7 @@ export const logout=async(req,res)=>{
         message:"Logged out successfully"
     });
 };
+
 //forgot password function
 export const forgotPassword=async(req,res)=>{
     //get credentials
@@ -199,8 +201,48 @@ export const forgotPassword=async(req,res)=>{
         console.log("Error in forgot password",error);
         res.status(400).json({
             success:false,
-            message:"Errror in forgot password"
+            message:error.message,
         })
     }
-}
+};
+
 //reset password function
+export const resetPassword=async(req,res)=>{
+    try{
+        //get the token from req parameter
+        const {token}=req.params;
+        //get tge password from req body
+        const {password}=req.body;
+
+        const user=await User.findOne({
+            resetPasswordToken:token,
+            resetPasswordExpiresAt:{$gt:Date.now()},
+        });
+        //if user not present
+        if(!user){
+            return res.status(400).json({
+                success:false,
+                message:"Invalid or expired reset token",
+            });
+        }
+        //if user found then reset the password
+        const hashedPassword=await bcryptjs.hash(password,10);
+        user.password=hashedPassword;
+        //now as password is updated delete the token
+        user.resetPasswordToken=undefined;
+        user.resetPasswordExpiresAt=undefined;
+        await user.save();
+        //send reset successful email
+        await sendResetSuccessEmail(user.email);
+        res.status(200).json({
+            success:true,
+            message:'Password reset successful'
+        });
+    } catch(error){
+        console.log("Errror in reset password function");
+        res.status(400).json({
+            success:false,
+            message:error.message,
+        });
+    }
+};
