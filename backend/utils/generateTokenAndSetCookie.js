@@ -27,6 +27,5 @@ export const generateTokenAndSetCookie = (res, user_id) => {
         //sets the cookie to expire in 7 days (in milliseconds), matching the JWT’s expiration
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
-
     return token;
 };
