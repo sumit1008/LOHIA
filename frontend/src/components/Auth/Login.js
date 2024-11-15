@@ -1,13 +1,19 @@
-// src/components/Auth/Login.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Logged in with:", { email, password });
+
+        if (email === "abc@gmail.com" && password === "pass") {
+            console.log("Logged in with:", { email, password });
+            navigate("/dashboard");
+        } else {
+            alert("Invalid credentials");
+        }
     };
 
     return (

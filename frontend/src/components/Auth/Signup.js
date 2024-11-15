@@ -1,19 +1,24 @@
-// src/components/Auth/Signup.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-
+    const navigate = useNavigate();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("Passwords do not match.");
             return;
         }
-        // Handle signup logic (e.g., API request)
+        
         console.log("Signed up with:", { email, password });
+
+        
+        navigate("/dashboard");
     };
 
     return (
@@ -30,6 +35,19 @@ const Signup = () => {
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            className="mt-1 p-2 w-full border border-gray-300 rounded-md"
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                            Name
+                        </label>
+                        <input
+                            type="name"
+                            id="name"
+                            value={email}
+                            onChange={(e) => setName(e.target.value)}
                             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                             required
                         />
