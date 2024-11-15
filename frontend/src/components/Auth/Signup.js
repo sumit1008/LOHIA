@@ -46,7 +46,7 @@ const Signup = () => {
                         <input
                             type="name"
                             id="name"
-                            value={email}
+                            value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="mt-1 p-2 w-full border border-gray-300 rounded-md"
                             required
