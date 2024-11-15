@@ -2,3 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  background: #ffffff;
+}
+
+.main .sidebarWrapper{
+  /* background: #ffffff; */
+  height: 100vh;
+}
+.main .sidebarWrapper .sidebar{
+  height: 100vh;
+  /* background: hsl(0, 0%, 87%); */
+  /* background: rgb(2,0,36);
+background: radial-gradient(circle, rgba(2,0,36,1) 2%, rgba(9,9,121,1) 45%, rgba(0,212,255,1) 100%); */
+}
+
+ .logoWrapper img {
+  width: 200px; 
+  height: auto; 
+  margin: -10px;
+  margin-top: -10px;
+  margin-right: 5px;
+}
+/* .main .sidebarWrapper .sidebar .sidebarTabs Button{
+
+  justify-content: flex-start !important;
+ 
+} */
+
+/* Style for scrolling notice */
+/* Style for notice heading */
+/* Custom background color for the notice card */
+/* Custom background color for the notice card */
+.notice-card-bg {
+  background-color: #f3f4f6;  /* Light gray background */
+}
+
+/* Custom color for the notice heading */
+.notice-heading {
+  color: black;  /* Set the font color of the heading to black */
+}
+
+/* Style for scrolling notice text */
+.scrolling-text {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  color: black;  /* Set the font color for scrolling text */
+}
+
+.scrolling-text p {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  animation: scroll-up 10s linear infinite;
+}
+
+@keyframes scroll-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+
+

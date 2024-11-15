@@ -1,10 +1,12 @@
-// tailwind.config.js
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: [
-    "./src/**/*.{html,js,jsx,ts,tsx}",  // Ensure it checks the correct files
+    "./index.html", // Ensures tailwind picks up your HTML file
+    "./src/**/*.{js,ts,jsx,tsx}", // Ensures tailwind processes all JS/TS/JSX/TSX files
   ],
   theme: {
     extend: {},
   },
+  darkMode: 'class', // Enables class-based dark mode (uses the 'dark' class to toggle)
   plugins: [],
 }
