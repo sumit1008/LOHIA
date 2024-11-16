@@ -3,33 +3,39 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/navbar/Navbar';
 import Dashboard from './pages/Dashboard';
+import AttendanceTracker from './pages/Attendance-Tracker';
 
 // Create a Context for Dark Mode
 export const DarkModeContext = createContext();
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false); // State to manage dark mode
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Function to toggle dark mode
   const toggleDarkMode = () => {
-    setIsDarkMode(prevState => !prevState); // Toggle dark mode
+    setIsDarkMode((prevState) => !prevState);
   };
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-      <BrowserRouter>
-        <section className={`main flex ${isDarkMode ? 'dark' : ''}`}>
-          <div className="sidebarWrapper w-[15%]">
-            <Sidebar />
-          </div>
-          <div className="content-Right w-[85%]">
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-            </Routes>
-          </div>
-        </section>
-      </BrowserRouter>
+      <div className={isDarkMode ? 'dark bg-gray-900 text-white' : 'bg-white text-black'}>
+        <BrowserRouter>
+          <section className="main flex">
+            {/* Sidebar */}
+            <div className="sidebarWrapper w-[15%] bg-gray-100 dark:bg-gray-800">
+              <Sidebar />
+            </div>
+
+            {/* Content Area */}
+            <div className="content-Right w-[85%]">
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/attendance-tracker" element={<AttendanceTracker />} />
+              </Routes>
+            </div>
+          </section>
+        </BrowserRouter>
+      </div>
     </DarkModeContext.Provider>
   );
 }
