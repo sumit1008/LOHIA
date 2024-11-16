@@ -8,7 +8,6 @@ import { sendVerificationEmail, sendWelcomeEmail,sendPasswordResetEmail,sendRese
 export const signup=async (req,res)=>{
     //grab data feom user
     const {email,password,name}=req.body;
-
     try{
         //check for all required fields
         if(!email||!password||!email){
@@ -44,7 +43,6 @@ export const signup=async (req,res)=>{
 
         //send verificaition email to user
         await sendVerificationEmail(user.email,verificationToken);
-
         res.status(201).json({
             success:true,
             message:"User created Successfully",
