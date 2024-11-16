@@ -6,6 +6,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArticleIcon from '@mui/icons-material/Article';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { DarkModeContext } from '../../App'; // Import the context
 
 function Navbar() {
@@ -55,10 +56,13 @@ function Navbar() {
           <span className="text-xs font-bold">Alerts</span>
         </div>
 
+        {/* DSA Sheet Button linked to the /dsa-sheet route */}
         <div className="flex flex-col items-center">
-          <IconButton color="primary" aria-label="dsa sheet">
-            <ArticleIcon />
-          </IconButton>
+          <Link to="/dsa-sheet"> {/* Use Link to navigate */}
+            <IconButton color="primary" aria-label="dsa sheet">
+              <ArticleIcon />
+            </IconButton>
+          </Link>
           <span className="text-xs font-bold">DSA Sheet</span>
         </div>
 
