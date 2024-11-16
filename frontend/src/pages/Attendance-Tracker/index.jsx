@@ -127,6 +127,8 @@ function AttendanceTracker() {
                   onClick={() => markAttendance(subject, false)}
                   style={{ color: '#fff' }}
                 >
+
+                  
                   Absent
                 </Button>
               </TableCell>
