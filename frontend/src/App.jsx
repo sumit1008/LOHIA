@@ -5,6 +5,7 @@ import Navbar from './components/navbar/Navbar';
 import Dashboard from './pages/Dashboard';
 import AttendanceTracker from './pages/Attendance-Tracker';
 import DsaSheet from './pages/Dsa-Sheet'; // Import the DSA Sheet page
+import ToDoList from './pages/To-Do-List';
 
 // Create a Context for Dark Mode
 export const DarkModeContext = createContext();
@@ -33,6 +34,8 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/attendance-tracker" element={<AttendanceTracker />} />
                 <Route path="/dsa-sheet" element={<DsaSheet />} /> {/* Add route for DSA Sheet */}
+                <Route path="/to-do-list" element={<ToDoList />} />
+                <Route path="/to-do-list" element={<ToDoList />} />
               </Routes>
             </div>
           </section>

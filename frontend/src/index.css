@@ -70,3 +70,15 @@ background: radial-gradient(circle, rgba(2,0,36,1) 2%, rgba(9,9,121,1) 45%, rgba
 
 
 
+@keyframes vertical-scroll {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-vertical-scroll {
+  animation: vertical-scroll linear infinite;
+}
