@@ -13,10 +13,10 @@ function Navbar() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext); // Get dark mode state and toggle function from context
 
   return (
-    <nav className={`navbar flex items-center justify-between py-2 px-4 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
+    <nav className={`navbar flex items-center justify-right py-2 px-4 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
       {/* Centered Search Box */}
       <div className="flex-1 flex justify-center">
-        <TextField
+        {/* <TextField
           variant="outlined"
           placeholder="Findings"
           size="small"
@@ -28,7 +28,7 @@ function Navbar() {
             ),
           }}
           className={`w-[250px] bg-white rounded-full ${isDarkMode ? 'text-white' : 'text-gray-700'}`}
-        />
+        /> */}
       </div>
 
       {/* Buttons with Bold Labels */}
