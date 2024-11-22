@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import AttendanceTracker from './pages/Attendance-Tracker';
 import DsaSheet from './pages/Dsa-Sheet'; // Import the DSA Sheet page
 import ToDoList from './pages/To-Do-List';
+import CodingProfile from './pages/Coding-Profile/CodingProfile'; 
 
 // Create a Context for Dark Mode
 export const DarkModeContext = createContext();
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/dsa-sheet" element={<DsaSheet />} /> {/* Add route for DSA Sheet */}
                 <Route path="/to-do-list" element={<ToDoList />} />
                 <Route path="/to-do-list" element={<ToDoList />} />
+                <Route path="/coding-profile" element={<CodingProfile />} />
               </Routes>
             </div>
           </section>
