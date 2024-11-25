@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 import { DarkModeContext } from '../../App';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ReplayIcon from '@mui/icons-material/Replay';
+import DsaSidebar from '../../components/dsa-sidebar/dsaSidebar'; // Import the sidebar
 
 // Custom styles for the DSA Sheet page
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +28,16 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       transform: 'scale(1.2)',
     },
+  },
+  mainContent: {
+    flex: 1, // This makes sure the main content takes up the remaining space
+    padding: '20px',
+    overflowX: 'auto', // Handle overflow in case the content is too wide
+  },
+  mainContainer: {
+    display: 'flex',
+    width: '100%',
+    minHeight: '100vh',
   },
 }));
 
@@ -69,145 +80,152 @@ function DsaSheet() {
   const completionPercentage = totalQuestions ? Math.round((completedQuestions / totalQuestions) * 100) : 0;
   const remainingQuestions = questions.length - completedQuestions;
 
-
   return (
-    <div className={`container mx-auto p-4 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
-      {/* Add Question Section */}
-      <Card className={classes.card} style={{ backgroundColor: isDarkMode ? '#333' : '#f5f5f5', color: isDarkMode ? '#fff' : '#000' }}>
-        <Typography variant="h5">Add DSA Question</Typography>
-        <div className="flex space-x-4">
-          <TextField
-            label="Question"
-            variant="outlined"
-            fullWidth
-            value={newQuestion}
-            onChange={(e) => setNewQuestion(e.target.value)}
-            style={{
-              backgroundColor: isDarkMode ? '#555' : '#fff',
-              color: isDarkMode ? '#fff' : '#000',
-            }}
-            InputProps={{
-              style: { color: isDarkMode ? '#fff' : '#000' },
-            }}
-            InputLabelProps={{
-              style: { color: isDarkMode ? '#fff' : '#000' },
-            }}
-          />
-          <TextField
-            label="Link"
-            variant="outlined"
-            fullWidth
-            value={newLink}
-            onChange={(e) => setNewLink(e.target.value)}
-            style={{
-              backgroundColor: isDarkMode ? '#555' : '#fff',
-              color: isDarkMode ? '#fff' : '#000',
-            }}
-            InputProps={{
-              style: { color: isDarkMode ? '#fff' : '#000' },
-            }}
-            InputLabelProps={{
-              style: { color: isDarkMode ? '#fff' : '#000' },
-            }}
-          />
-        </div>
-        <div className="mt-4">
-          <TextField
-            label="Notes"
-            variant="outlined"
-            multiline
-            rows={4}
-            fullWidth
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            style={{
-              backgroundColor: isDarkMode ? '#555' : '#fff',
-              color: isDarkMode ? '#fff' : '#000',
-            }}
-            InputProps={{
-              style: { color: isDarkMode ? '#fff' : '#000' },
-            }}
-            InputLabelProps={{
-              style: { color: isDarkMode ? '#fff' : '#000' },
-            }}
-          />
-        </div>
-        <div className="mt-4 flex space-x-4">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={addQuestion}
-            className="mt-4"
-            style={{
-              backgroundColor: isDarkMode ? '#1976d2' : '#3f51b5',
-              color: '#fff',
-            }}
-          >
-            Add Question
-          </Button>
-        </div>
-      </Card>
+    <div className={`flex ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
+      {/* Sidebar */}
+      <DsaSidebar />
 
-      {/* Question List Section */}
-      <div className="mt-8">
-        <Typography variant="h5">DSA Questions</Typography>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Question</TableCell>
-              <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Link</TableCell>
-              <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Completed</TableCell>
-              <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Revision</TableCell>
-              <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Notes</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {questions.map((q, index) => (
-              <TableRow key={index}>
-                <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>{q.question}</TableCell>
-                <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>
-                  <a href={q.link} target="_blank" rel="noopener noreferrer" style={{ color: isDarkMode ? '#1976d2' : '#3f51b5' }}>
-                    {q.link}
-                  </a>
-                </TableCell>
-                <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>
-                  <Checkbox
-                    className={classes.iconButton}
-                    onClick={() => handleCheckboxChange(index, 'completed')}
-                    color="primary"
-                  >
-                    {q.completed ? <CheckCircleIcon /> : <ReplayIcon />}
-                  </Checkbox>
-                </TableCell>
-                <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>
-                  <Checkbox
-                    checked={q.revision}
-                    onChange={() => handleCheckboxChange(index, 'revision')}
-                    color="secondary"
-                  />
-                </TableCell>
-                <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>{q.notes}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      {/* Main Content */}
+      <div className={classes.mainContainer}>
+        <div className={classes.mainContent}>
+          {/* Add Question Section */}
+          <Card className={classes.card} style={{ backgroundColor: isDarkMode ? '#333' : '#f5f5f5', color: isDarkMode ? '#fff' : '#000' }}>
+            <Typography variant="h5">Add DSA Question</Typography>
+            <div className="flex space-x-4">
+              <TextField
+                label="Question"
+                variant="outlined"
+                fullWidth
+                value={newQuestion}
+                onChange={(e) => setNewQuestion(e.target.value)}
+                style={{
+                  backgroundColor: isDarkMode ? '#555' : '#fff',
+                  color: isDarkMode ? '#fff' : '#000',
+                }}
+                InputProps={{
+                  style: { color: isDarkMode ? '#fff' : '#000' },
+                }}
+                InputLabelProps={{
+                  style: { color: isDarkMode ? '#fff' : '#000' },
+                }}
+              />
+              <TextField
+                label="Link"
+                variant="outlined"
+                fullWidth
+                value={newLink}
+                onChange={(e) => setNewLink(e.target.value)}
+                style={{
+                  backgroundColor: isDarkMode ? '#555' : '#fff',
+                  color: isDarkMode ? '#fff' : '#000',
+                }}
+                InputProps={{
+                  style: { color: isDarkMode ? '#fff' : '#000' },
+                }}
+                InputLabelProps={{
+                  style: { color: isDarkMode ? '#fff' : '#000' },
+                }}
+              />
+            </div>
+            <div className="mt-4">
+              <TextField
+                label="Notes"
+                variant="outlined"
+                multiline
+                rows={4}
+                fullWidth
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                style={{
+                  backgroundColor: isDarkMode ? '#555' : '#fff',
+                  color: isDarkMode ? '#fff' : '#000',
+                }}
+                InputProps={{
+                  style: { color: isDarkMode ? '#fff' : '#000' },
+                }}
+                InputLabelProps={{
+                  style: { color: isDarkMode ? '#fff' : '#000' },
+                }}
+              />
+            </div>
+            <div className="mt-4 flex space-x-4">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={addQuestion}
+                className="mt-4"
+                style={{
+                  backgroundColor: isDarkMode ? '#1976d2' : '#3f51b5',
+                  color: '#fff',
+                }}
+              >
+                Add Question
+              </Button>
+            </div>
+          </Card>
 
-      {/* Summary Section with Circular Progress */}
-      <div className="mt-8">
-        <Typography variant="h6">Completion Status</Typography>
-        <div className={classes.progress}>
-          <CircularProgress
-            variant="determinate"
-            value={completionPercentage}
-            size={100}
-            thickness={4}
-            style={{ marginRight: '20px' }}
-            color={completionPercentage === 100 ? 'success' : 'primary'}
-          />
-          <div>
-            <Typography variant="h6">{completedQuestions} Completed</Typography>
-            <Typography variant="h6">{remainingQuestions} Remaining</Typography>
+          {/* Question List Section */}
+          <div className="mt-8">
+            <Typography variant="h5">DSA Questions</Typography>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Question</TableCell>
+                  <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Link</TableCell>
+                  <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Completed</TableCell>
+                  <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Revision</TableCell>
+                  <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>Notes</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {questions.map((q, index) => (
+                  <TableRow key={index}>
+                    <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>{q.question}</TableCell>
+                    <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>
+                      <a href={q.link} target="_blank" rel="noopener noreferrer" style={{ color: isDarkMode ? '#1976d2' : '#3f51b5' }}>
+                        {q.link}
+                      </a>
+                    </TableCell>
+                    <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>
+                      <Checkbox
+                        className={classes.iconButton}
+                        onClick={() => handleCheckboxChange(index, 'completed')}
+                        color="primary"
+                      >
+                        {q.completed ? <CheckCircleIcon /> : <ReplayIcon />}
+                      </Checkbox>
+                    </TableCell>
+                    <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>
+                      <Checkbox
+                        checked={q.revision}
+                        onChange={() => handleCheckboxChange(index, 'revision')}
+                        color="secondary"
+                      />
+                    </TableCell>
+                    <TableCell style={{ color: isDarkMode ? '#fff' : '#000' }}>{q.notes}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Summary Section with Circular Progress */}
+          <div className="mt-8">
+            <Typography variant="h6">Completion Status</Typography>
+            <div className={classes.progress}>
+              <CircularProgress
+                variant="determinate"
+                value={completionPercentage}
+                size={100}
+                thickness={4}
+                style={{ marginRight: '20px' }}
+                color={completionPercentage === 100 ? 'success' : 'primary'}
+              />
+              <div>
+                <Typography variant="h6">{completedQuestions} Completed</Typography>
+                <Typography variant="h6">{remainingQuestions} Remaining</Typography>
+              </div>
+            </div>
           </div>
         </div>
       </div>

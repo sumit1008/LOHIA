@@ -85,15 +85,15 @@ function ToDoList() {
           onChange={(e) => setTaskInput(e.target.value)}
           className={`flex-1 mr-2 ${isDarkMode ? 'bg-gray-800 text-white' : ''}`}
         />
-        <TextField
+        {/* <TextField
           variant="outlined"
           placeholder="Reminder in minutes"
           value={reminderTime}
           onChange={(e) => setReminderTime(e.target.value)}
           type="number"
           className={`mr-2 w-32 ${isDarkMode ? 'bg-gray-800 text-white' : ''}`}
-        />
-        <Button variant="contained" color="primary" onClick={handleAddOrUpdateTask}>
+        /> */}
+        <Button variant="contained" color="primary" onClick={handleAddOrUpdateTask} className='w-40 ml-10 mr-11'>
           {editMode ? 'Update' : 'Add'}
         </Button>
       </div>

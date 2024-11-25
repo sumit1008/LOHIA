@@ -8,6 +8,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { DarkModeContext } from '../../App'; // Import the context
+import logo from '../../assets/images/logo.png'; // Import logo from src folder
 
 function Navbar() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext); // Get dark mode state and toggle function from context
@@ -15,6 +16,7 @@ function Navbar() {
   return (
     <nav className={`navbar flex items-center justify-right py-2 px-4 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
       {/* Centered Search Box */}
+      
       <div className="flex-1 flex justify-center">
         {/* <TextField
           variant="outlined"
@@ -30,6 +32,7 @@ function Navbar() {
           className={`w-[250px] bg-white rounded-full ${isDarkMode ? 'text-white' : 'text-gray-700'}`}
         /> */}
       </div>
+     
 
       {/* Buttons with Bold Labels */}
       <div className="buttons flex items-center space-x-4">
