@@ -9,6 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { DarkModeContext } from '../../App'; // Import the context
 import logo from '../../assets/images/logo.png'; // Import logo from src folder
+import Login from '../../pages/Login/Login';
 
 function Navbar() {
   const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext); // Get dark mode state and toggle function from context
@@ -70,9 +71,9 @@ function Navbar() {
         </div>
 
         <div className="flex flex-col items-center">
-          <IconButton color="primary" aria-label="profile">
+         <Link to={"/Login"}> <IconButton color="primary" aria-label="profile">
             <AccountCircleIcon />
-          </IconButton>
+          </IconButton></Link>
           <span className="text-xs font-bold">Profile</span>
         </div>
       </div>

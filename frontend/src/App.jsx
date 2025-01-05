@@ -9,6 +9,8 @@ import CodingProfile from "./pages/Coding-Profile/CodingProfile";
 import DsaSheetLanding from "./pages/Dsa-Sheet-Landing";
 import DsaSheet from "./pages/Dsa-Sheet";
 import EditProfile from "./pages/Edit-Profile"; // Import EditProfile component
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/Login/Signup/Signup";
 
 // Context for Dark Mode
 export const DarkModeContext = createContext();
@@ -34,11 +36,16 @@ function App() {
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
-      <div className={isDarkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"}>
+      <div
+        className={
+          isDarkMode ? "dark bg-gray-900 text-white" : "bg-white text-black"
+        }
+      >
         <BrowserRouter>
           <section className="main flex">
             <Routes>
-              {/* Route for DSA Sheet Landing */}
+              <Route path="/Login" element={<Login />} />
+              <Route path="/SignUp" element={<SignUp />}></Route>
               <Route
                 path="/dsa-sheet"
                 element={
@@ -70,12 +77,20 @@ function App() {
                       <Navbar />
                       <Routes>
                         <Route path="/" element={<Dashboard />} />
-                        <Route path="/attendance-tracker" element={<AttendanceTracker />} />
+                        <Route
+                          path="/attendance-tracker"
+                          element={<AttendanceTracker />}
+                        />
                         <Route path="/to-do-list" element={<ToDoList />} />
-                        <Route path="/coding-profile" element={<CodingProfile />} />
+                        <Route
+                          path="/coding-profile"
+                          element={<CodingProfile />}
+                        />
                         <Route
                           path="/edit-profile"
-                          element={<EditProfile user={user} setUser={setUser} />}
+                          element={
+                            <EditProfile user={user} setUser={setUser} />
+                          }
                         />
                       </Routes>
                     </div>
